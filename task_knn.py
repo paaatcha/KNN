@@ -6,10 +6,7 @@ sys.path.append("../utils")
 from utils import cont_error, ind2vec
 
 # loading the data set
-
-#dataset = np.genfromtxt('../datasets/iris.csv', delimiter=',')
-
-dataset = np.genfromtxt('/home/patcha/Dropbox/Doutorado/Codigos/Python/DataScience/AguiaBranca/motoristasMerged.csv', delimiter=',')
+dataset = np.genfromtxt('../datasets/iris.csv', delimiter=',')
 
 
 # Number of samples and features + label (the last position of the array is the class label)
