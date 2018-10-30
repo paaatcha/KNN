@@ -6,10 +6,10 @@ sys.path.append("../utils")
 from utilsClassification import oneHotEncoding, contError
 
 # loading the data set
-
 #dataset = np.genfromtxt('../datasets/iris.csv', delimiter=',')
 
 dataset = np.genfromtxt('/home/patcha/Datasets/Iris/iris.csv', delimiter=',')
+
 
 
 # Number of samples and features + label (the last position of the array is the class label)
