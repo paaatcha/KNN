@@ -19,16 +19,18 @@ import numpy as np
 def euclidean_dist (x,y):
       return np.sqrt(np.power(x-y,2).sum(axis=1))
   
-# Cosseno distance
-def coss_dist (x,y):
-      return ((x * y).sum(axis=1)) / (np.sqrt(np.sum(x**2)) * np.sqrt(np.sum(y**2)))
-  
-def coss_dist2 (x,y):
-      return ((x * y).sum()) / (np.sqrt(np.sum(x**2)) * np.sqrt(np.sum(y**2)))    
+## Cosine distance
+#def coss_dist (x,y):      
+#      return ((x.dot(y.T)).sum(axis=1)) / (np.sqrt(np.sum(x**2)) * np.sqrt(np.sum(y**2)))
 
 # Minkowsky distance
 def minkowsky_dist (x,y,r):
       return np.power(np.abs(np.power(x-y,r)).sum(axis=1), r)
+  
+# Chebyshev distance
+def chebyshev_dist (x,y):
+    return np.abs(x-y).max(axis=1)
+
 
 def knn (in_train, out_train, in_test, k, dist='E', r=0.5):
       in_train = np.asarray (in_train)
@@ -39,8 +41,8 @@ def knn (in_train, out_train, in_test, k, dist='E', r=0.5):
       size_out_train = out_train.shape
       size_in_test = in_test.shape
 
-      print size_out_train
-      print size_in_test
+#      print size_out_train
+#      print size_in_test
 
       #The labels array that will be returned
       labels = np.zeros ([size_in_test[0], size_out_train[1]])
@@ -52,9 +54,11 @@ def knn (in_train, out_train, in_test, k, dist='E', r=0.5):
            if (dist == 'E'):
                dists = euclidean_dist (rpt_test,in_train)
            elif (dist == 'C'):
-               dists = coss_dist (rpt_test,in_train)
-           else:
+               dists = chebyshev_dist (rpt_test,in_train)
+           elif (dist == 'M'):
                dists = minkowsky_dist (rpt_test,in_train, r)
+           else:
+               raise ("There is no distance named {}".format(dist))
 
            # Sorting the distances and getting the k nearest neighbors
            index_sort = np.argsort (dists)
